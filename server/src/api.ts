@@ -6,20 +6,16 @@ export const app = express();
 app.use(json());
 app.use(cors({ origin: true }));
 
-app.post("/test", (req: Request, res: Response) => {
-  const amount = req.body.amount;
-
-  res.status(200).send({ with_tax: amount * 7 });
-});
-
+// This function runs async functions and catch errors
 function runAsync(callback: Function) {
   return (req: Request, res: Response, next: NextFunction) => {
     callback(req, res, next).catch(next);
   };
 }
 
+// Create a new checkout session
 app.post(
-  "/checkouts/",
+  "/checkout/",
   runAsync(async ({ body }: Request, res: Response) => {
     res.send(await createStripeCheckoutSession(body.line_items));
   })
