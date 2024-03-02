@@ -1,35 +1,92 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
+import { Checkout, CheckoutSuccess, CheckoutFail } from "./Checkout";
+import Payments from "./Payments";
+import Customers from "./Customers";
+import Subscriptions from "./Subscriptions";
+
+import "./App.css";
+
+export default function App() {
   return (
-    <>
+    <Router>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <nav>
+          <ul className="navbar-nav">
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/checkout">
+                <span aria-label="emoji" role="img">
+                  🛒
+                </span>{" "}
+                Checkout
+              </Link>
+            </li>
+            <li>
+              <Link to="/payments">
+                <span aria-label="emoji" role="img">
+                  💸
+                </span>{" "}
+                Payments
+              </Link>
+            </li>
+            <li>
+              <Link to="/customers">
+                <span aria-label="emoji" role="img">
+                  🧑🏿‍🤝‍🧑🏻
+                </span>{" "}
+                Customers
+              </Link>
+            </li>
+            <li>
+              <Link to="/subscriptions">
+                <span aria-label="emoji" role="img">
+                  🔄
+                </span>{" "}
+                Subscriptions
+              </Link>
+            </li>
+          </ul>
+        </nav>
+
+        <main>
+          <Switch>
+            <Route path="/checkout">
+              <Checkout />
+            </Route>
+            <Route path="/payments">
+              <Payments />
+            </Route>
+            <Route path="/customers">
+              <Customers />
+            </Route>
+            <Route path="/subscriptions">
+              <Subscriptions />
+            </Route>
+            <Route path="/success">
+              <CheckoutSuccess />
+            </Route>
+            <Route path="/failed">
+              <CheckoutFail />
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </main>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </Router>
+  );
 }
 
-export default App
+function Home() {
+  return (
+    <>
+      <h2>Stripe React + Node.js</h2>
+    </>
+  );
+}
