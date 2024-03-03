@@ -4,7 +4,7 @@ import { useStripe } from "@stripe/react-stripe-js";
 import { StripeError } from "@stripe/stripe-js";
 import { Product } from "../types";
 
-export default function Checkout() {
+export function Checkout() {
   const stripe = useStripe();
 
   const [product, setProduct] = useState({
@@ -66,4 +66,12 @@ export default function Checkout() {
       </button>
     </>
   );
+}
+
+export function CheckoutSuccess() {
+  return <h1 className="m-4 p-4">Checkout Success</h1>;
+}
+
+export function CheckoutFail() {
+  return <h1 className="m-4 p-4">Checkout Failed</h1>;
 }

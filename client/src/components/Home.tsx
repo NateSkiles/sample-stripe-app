@@ -1,8 +1,7 @@
 export default function Home() {
-    return (
-      <>
-        <h2>Stripe React + Node.js</h2>
-      </>
-    );
-  }
-  
+  return (
+    <>
+      <h1 className="m-4 p-4">Stripe React + Node.js</h1>
+    </>
+  );
+}
