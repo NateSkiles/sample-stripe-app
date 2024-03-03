@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Checkout } from "./components/Checkout";
-import NavBar from "./components/NavBar";
+import { NavBar, Home, Checkout } from "./components";
 
 import "./App.css";
 
@@ -17,13 +16,5 @@ export default function App() {
         </main>
       </div>
     </BrowserRouter>
-  );
-}
-
-function Home() {
-  return (
-    <>
-      <h2>Stripe React + Node.js</h2>
-    </>
   );
 }

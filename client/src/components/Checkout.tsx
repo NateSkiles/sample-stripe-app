@@ -4,7 +4,7 @@ import { useStripe } from "@stripe/react-stripe-js";
 import { StripeError } from "@stripe/stripe-js";
 import { Product } from "../types";
 
-export function Checkout() {
+export default function Checkout() {
   const stripe = useStripe();
 
   const [product, setProduct] = useState({

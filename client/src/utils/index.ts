@@ -18,3 +18,7 @@ export async function fetchFromAPI(
 
   return res.json();
 }
+
+export function classNames(...classes: string[]) {
+  return classes.filter(Boolean).join(" ");
+}
