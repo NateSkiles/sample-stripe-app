@@ -30,17 +30,26 @@ exports.app = void 0;
 const express_1 = __importStar(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const checkout_1 = require("./checkout");
+const payments_1 = require("./payments");
+const webhooks_1 = require("./webhooks");
 exports.app = (0, express_1.default)();
-exports.app.use((0, express_1.json)());
+exports.app.use((0, express_1.json)({
+    verify: (req, res, buf) => (req["rawBody"] = buf),
+}));
 exports.app.use((0, cors_1.default)({ origin: true }));
 // This function runs async functions and catch errors
-function runAsync(callback) {
+function runAsync(cb) {
     return (req, res, next) => {
-        callback(req, res, next).catch(next);
+        cb(req, res, next).catch(next);
     };
 }
 // Create a new checkout session
-exports.app.post("/checkout/", runAsync(async ({ body }, res) => {
+exports.app.post("/checkout", runAsync(async ({ body }, res) => {
     res.send(await (0, checkout_1.createStripeCheckoutSession)(body.line_items));
 }));
+// Payment Intent
+exports.app.post("/payments", runAsync(async ({ body }, res) => {
+    res.send(await (0, payments_1.createPaymentIntent)(body.amount));
+}));
+exports.app.post("/hooks", runAsync(webhooks_1.handleStripeWebhook));
 //# sourceMappingURL=api.js.map
